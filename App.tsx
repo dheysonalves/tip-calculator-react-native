@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { InputData } from "./src/components/BaseComponents";
+import PriceButtons from "./src/components/SelectTip/PriceButtons";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	const DATA = [
+		{ value: "5" },
+		{
+			value: "10",
+		},
+		{
+			value: "15",
+		},
+		{
+			value: "25",
+		},
+		{
+			value: "50",
+		},
+	];
+
+	return (
+		<View style={styles.container}>
+			<StatusBar style="auto" />
+			<InputData title="Bill" dataValue="142.55" />
+			<PriceButtons pricesData={DATA} />
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	container: {
+		flex: 1,
+		backgroundColor: "#fff",
+		justifyContent: "center",
+		padding: 16,
+	},
 });
