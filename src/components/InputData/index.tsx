@@ -6,6 +6,7 @@ interface InputDataProps {
 	dataValue: string;
 	onHandleDataValue: (value: string) => void;
 	hasError: boolean;
+	isEditable?: boolean;
 }
 
 const InputData = ({
@@ -13,6 +14,7 @@ const InputData = ({
 	dataValue,
 	onHandleDataValue,
 	hasError,
+	isEditable
 }: InputDataProps) => {
 	const [isFocused, setIsFocused] = useState(false);
 	const handleDataValue = (value: string) => {
@@ -44,6 +46,7 @@ const InputData = ({
 					onBlur={() => {
 						setIsFocused(false);
 					}}
+					editable={isEditable}
 				/>
 			</View>
 		</View>

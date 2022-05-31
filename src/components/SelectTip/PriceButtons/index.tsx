@@ -17,6 +17,7 @@ const PriceButtons = ({
 	onPressPercentage,
 }: PriceButtonsInterface) => {
 	const [selectedOption, setSelectedOption] = useState("");
+	const [isFocused, setIsFocused] = useState(false);
 	const handleDataValue = (value: string) => {
 		onHandleCustomInput(value);
 	};
@@ -53,7 +54,7 @@ const PriceButtons = ({
 				})}
 
 				<TextInput
-					style={styles.customInputStyle}
+					style={[styles.customInputStyle, isFocused ? styles.focused : null]}
 					selectionColor="hsl(183, 100%, 15%)"
 					placeholderTextColor="hsla(183.11688311688312, 100%, 15.098039215686274%, 0.5)"
 					placeholder="Custom"
@@ -61,7 +62,11 @@ const PriceButtons = ({
 					value={customInputValue}
 					onChangeText={handleDataValue}
 					onFocus={() => {
+						setIsFocused(true);
 						setSelectedOption("");
+					}}
+					onBlur={() => {
+						setIsFocused(false);
 					}}
 				/>
 			</View>
@@ -96,6 +101,14 @@ const styles = StyleSheet.create({
 	},
 	selected: {
 		backgroundColor: "hsl(172, 67%, 45%)",
+	},
+	focused: {
+		borderColor: "hsl(172, 67%, 45%)",
+		borderWidth: 1,
+	},
+	error: {
+		borderColor: "red",
+		borderWidth: 1,
 	},
 	customInputStyle: {
 		borderRadius: 5,
