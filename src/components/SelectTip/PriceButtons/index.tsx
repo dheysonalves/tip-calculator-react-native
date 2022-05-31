@@ -1,13 +1,17 @@
 import React from "react";
-import { View, Pressable, Text, StyleSheet } from "react-native";
+import { View, Pressable, Text, StyleSheet, TextInput } from "react-native";
 
 interface PriceButtonsInterface {
 	pricesData: {
 		value: string;
 	}[];
+	customInputValue: string;
 }
 
-const PriceButtons = ({ pricesData }: PriceButtonsInterface) => {
+const PriceButtons = ({
+	pricesData,
+	customInputValue,
+}: PriceButtonsInterface) => {
 	return (
 		<View style={styles.container}>
 			{pricesData.map((item, index) => {
@@ -22,6 +26,14 @@ const PriceButtons = ({ pricesData }: PriceButtonsInterface) => {
 					</Pressable>
 				);
 			})}
+			<TextInput
+				style={styles.customInputStyle}
+				selectionColor="hsl(183, 100%, 15%)"
+				placeholderTextColor="hsla(183.11688311688312, 100%, 15.098039215686274%, 0.5)"
+				placeholder="Custom"
+				keyboardType="numeric"
+				value={customInputValue}
+			/>
 		</View>
 	);
 };
@@ -30,20 +42,30 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-		flexWrap: 'wrap',
+		flexWrap: "wrap",
 	},
 	buttonStyle: {
 		backgroundColor: "hsl(183, 100%, 15%)",
 		borderRadius: 5,
 		padding: 10,
-		width: 180,
+		minWidth: "48%",
+		marginVertical: 10,
+	},
+	customInputStyle: {
+		borderRadius: 5,
+		padding: 10,
+		minWidth: "48%",
 		marginBottom: 10,
+		fontSize: 24,
+		color: "hsl(183, 100%, 15%)",
+		backgroundColor: "hsl(189, 41%, 97%)",
+		textAlign: "right",
 	},
 	buttonText: {
-		color: '#fff',
+		color: "#fff",
 		fontSize: 24,
-		fontWeight: '700',
-		textAlign: 'center'
+		fontWeight: "700",
+		textAlign: "center",
 	},
 	title: {
 		color: "hsl(184, 14%, 56%)",

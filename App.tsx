@@ -24,7 +24,7 @@ export default function App() {
 		<View style={styles.container}>
 			<StatusBar style="auto" />
 			<InputData title="Bill" dataValue="142.55" />
-			<PriceButtons pricesData={DATA} />
+			<PriceButtons pricesData={DATA} customInputValue="" />
 		</View>
 	);
 }
