@@ -22,19 +22,19 @@ export default function App() {
 	];
 
 	return (
-		<View style={styles.container}>
+		<ScrollView style={styles.container}>
 			<View style={styles.header}>
 				<Text style={styles.headerText}>SPLI</Text>
 				<Text style={styles.headerText}>TTER</Text>
 			</View>
-			<ScrollView style={styles.content}>
+			<View style={styles.content}>
 				<StatusBar style="auto" />
 				<InputData title="Bill" dataValue="142.55" />
 				<PriceButtons pricesData={DATA} customInputValue="" />
 				<InputData title="Number of People" dataValue="5" />
 				<PresentationPerPerson tipAmount="4.27" totalValue="32.80" />
-			</ScrollView>
-		</View>
+			</View>
+		</ScrollView>
 	);
 }
 
@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
 		backgroundColor: "hsl(185, 41%, 84%)",
 	},
 	header: {
-		flex: 5,
+		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "hsl(185, 41%, 84%)",
 		paddingTop: 20,
+		height: 200,
 	},
 	headerText: {
 		color: "hsl(183, 100%, 15%)",
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
 	content: {
 		backgroundColor: "#fff",
 		paddingHorizontal: 24,
+		paddingVertical: 20,
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,
 	},
