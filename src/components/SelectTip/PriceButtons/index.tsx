@@ -6,12 +6,20 @@ interface PriceButtonsInterface {
 		value: string;
 	}[];
 	customInputValue: string;
+	onHandleCustomInput: (value: string) => void;
+	onPressPercentage: (value: number) => void;
 }
 
 const PriceButtons = ({
 	pricesData,
 	customInputValue,
+	onHandleCustomInput,
+	onPressPercentage,
 }: PriceButtonsInterface) => {
+	const handleDataValue = (value: string) => {
+		onHandleCustomInput(value);
+	};
+
 	return (
 		<View style={styles.container}>
 			{pricesData.map((item, index) => {
@@ -19,7 +27,7 @@ const PriceButtons = ({
 					<Pressable
 						key={String(index)}
 						onPress={() => {
-							console.log(Number(item.value) / 100);
+							onPressPercentage(Number(item.value) / 100);
 						}}
 						style={styles.buttonStyle}>
 						<Text style={styles.buttonText}>{item.value}%</Text>
@@ -33,6 +41,7 @@ const PriceButtons = ({
 				placeholder="Custom"
 				keyboardType="numeric"
 				value={customInputValue}
+				onChangeText={handleDataValue}
 			/>
 		</View>
 	);
@@ -75,6 +84,5 @@ const styles = StyleSheet.create({
 		marginVertical: 4,
 	},
 });
-
 
 export default PriceButtons;

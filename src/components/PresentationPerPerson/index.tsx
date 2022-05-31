@@ -4,9 +4,10 @@ import { Text, View, StyleSheet, Pressable } from "react-native";
 interface IPresentationPerPersonProps {
 	tipAmount: string;
 	totalValue: string;
+	onPressReset: () => void
 }
 
-const PresentationPerPerson = ({ tipAmount, totalValue }: IPresentationPerPersonProps) => {
+const PresentationPerPerson = ({ tipAmount, totalValue, onPressReset }: IPresentationPerPersonProps) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrapperFlex}>
@@ -23,7 +24,7 @@ const PresentationPerPerson = ({ tipAmount, totalValue }: IPresentationPerPerson
 				</View>
 				<Text style={styles.valueText}>${totalValue}</Text>
 			</View>
-			<Pressable style={styles.buttonContainer}>
+			<Pressable style={styles.buttonContainer} onPress={onPressReset}>
 				<Text style={styles.buttonText}>RESET</Text>
 			</Pressable>
 		</View>
