@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { InputData } from "./src/components/BaseComponents";
 import PresentationPerPerson from "./src/components/PresentationPerPerson";
 import PriceButtons from "./src/components/SelectTip/PriceButtons";
@@ -23,10 +23,17 @@ export default function App() {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar style="auto" />
-			<InputData title="Bill" dataValue="142.55" />
-			<PriceButtons pricesData={DATA} customInputValue="" />
-      <PresentationPerPerson />
+			<View style={styles.header}>
+				<Text style={styles.headerText}>SPLI</Text>
+				<Text style={styles.headerText}>TTER</Text>
+			</View>
+			<ScrollView style={styles.content}>
+				<StatusBar style="auto" />
+				<InputData title="Bill" dataValue="142.55" />
+				<PriceButtons pricesData={DATA} customInputValue="" />
+				<InputData title="Number of People" dataValue="5" />
+				<PresentationPerPerson />
+			</ScrollView>
 		</View>
 	);
 }
@@ -34,8 +41,25 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		backgroundColor: "hsl(185, 41%, 84%)",
+	},
+	header: {
+		flex: 5,
 		justifyContent: "center",
-		padding: 16,
+		alignItems: "center",
+		backgroundColor: "hsl(185, 41%, 84%)",
+		paddingTop: 20,
+	},
+	headerText: {
+		color: "hsl(183, 100%, 15%)",
+		fontWeight: "500",
+		letterSpacing: 10,
+		fontSize: 24,
+	},
+	content: {
+		backgroundColor: "#fff",
+		paddingHorizontal: 24,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20,
 	},
 });

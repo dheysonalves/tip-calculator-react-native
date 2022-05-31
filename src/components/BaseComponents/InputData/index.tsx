@@ -25,6 +25,7 @@ const InputData = ({ dataValue, title}: InputDataProps) => {
 const styles = StyleSheet.create({
 	container: {
 		alignItems: "flex-start",
+		marginVertical: 24
 	},
 	title: {
 		color: "hsl(184, 14%, 56%)",
