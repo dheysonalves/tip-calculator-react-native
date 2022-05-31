@@ -1,12 +1,17 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
 interface InputDataProps {
 	title: string;
 	dataValue: string;
+	onHandleDataValue: (value: string) => void
 }
 
-const InputData = ({ dataValue, title}: InputDataProps) => {
+const InputData = ({ title, dataValue, onHandleDataValue }: InputDataProps) => {
+	const handleDataValue = (value: string) => {
+		onHandleDataValue(value);
+	};
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>{title}</Text>
@@ -16,6 +21,7 @@ const InputData = ({ dataValue, title}: InputDataProps) => {
 					keyboardType="number-pad"
 					selectionColor="hsl(183, 100%, 15%)"
 					value={dataValue}
+					onChangeText={handleDataValue}
 				/>
 			</View>
 		</View>
@@ -48,7 +54,6 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.6,
 		textAlign: 'right',
 	},
-	selectionColor: {},
 });
 
 export default InputData;
