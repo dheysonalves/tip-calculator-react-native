@@ -91,6 +91,7 @@ export default function App() {
 					title="Bill"
 					dataValue={maskCurrency(billValue)}
 					onHandleDataValue={handleBillValue}
+					hasError={Number(billValue) <= 0}
 				/>
 				<PriceButtons
 					pricesData={DATA}
@@ -100,8 +101,9 @@ export default function App() {
 				/>
 				<InputData
 					title="Number of People"
-					dataValue={maskSpecial(peopleValue)}
+					dataValue={peopleValue}
 					onHandleDataValue={handlePeopleValue}
+					hasError={Number(peopleValue) <= 0}
 				/>
 				<PresentationPerPerson
 					tipAmount={tipAmountPerPerson}
