@@ -1,13 +1,23 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import {
+	Text,
+	View,
+	StyleSheet,
+	Pressable,
+	TouchableOpacity,
+} from "react-native";
 
 interface IPresentationPerPersonProps {
 	tipAmount: string;
 	totalValue: string;
-	onPressReset: () => void
+	onPressReset: () => void;
 }
 
-const PresentationPerPerson = ({ tipAmount, totalValue, onPressReset }: IPresentationPerPersonProps) => {
+const PresentationPerPerson = ({
+	tipAmount,
+	totalValue,
+	onPressReset,
+}: IPresentationPerPersonProps) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrapperFlex}>
@@ -24,9 +34,12 @@ const PresentationPerPerson = ({ tipAmount, totalValue, onPressReset }: IPresent
 				</View>
 				<Text style={styles.valueText}>${totalValue}</Text>
 			</View>
-			<Pressable style={styles.buttonContainer} onPress={onPressReset}>
+			<TouchableOpacity
+				style={styles.buttonContainer}
+				onPress={onPressReset}
+				activeOpacity={0.8}>
 				<Text style={styles.buttonText}>RESET</Text>
-			</Pressable>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -71,7 +84,7 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		textTransform: "uppercase",
 		fontSize: 18,
-		fontWeight: "600"
+		fontWeight: "600",
 	},
 });
 
