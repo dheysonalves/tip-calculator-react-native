@@ -32,7 +32,7 @@ export default function App() {
 				<InputData title="Bill" dataValue="142.55" />
 				<PriceButtons pricesData={DATA} customInputValue="" />
 				<InputData title="Number of People" dataValue="5" />
-				<PresentationPerPerson />
+				<PresentationPerPerson tipAmount="4.27" totalValue="32.80" />
 			</ScrollView>
 		</View>
 	);

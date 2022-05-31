@@ -1,7 +1,12 @@
 import React from "react";
-import { Button, TouchableOpacity, Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 
-const PresentationPerPerson = () => {
+interface IPresentationPerPersonProps {
+	tipAmount: string;
+	totalValue: string;
+}
+
+const PresentationPerPerson = ({ tipAmount, totalValue }: IPresentationPerPersonProps) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrapperFlex}>
@@ -9,14 +14,14 @@ const PresentationPerPerson = () => {
 					<Text style={styles.title}>Tip Amount</Text>
 					<Text style={styles.subtitle}>/ person</Text>
 				</View>
-				<Text style={styles.valueText}>$4.27</Text>
+				<Text style={styles.valueText}>${tipAmount}</Text>
 			</View>
 			<View style={styles.wrapperFlex}>
 				<View>
 					<Text style={styles.title}>Total</Text>
 					<Text style={styles.subtitle}>/ person</Text>
 				</View>
-				<Text style={styles.valueText}>$32.79</Text>
+				<Text style={styles.valueText}>${totalValue}</Text>
 			</View>
 			<Pressable style={styles.buttonContainer}>
 				<Text style={styles.buttonText}>RESET</Text>
