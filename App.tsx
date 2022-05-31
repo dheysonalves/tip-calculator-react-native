@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { InputData } from "./src/components/BaseComponents";
+import PresentationPerPerson from "./src/components/PresentationPerPerson";
 import PriceButtons from "./src/components/SelectTip/PriceButtons";
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
 			<StatusBar style="auto" />
 			<InputData title="Bill" dataValue="142.55" />
 			<PriceButtons pricesData={DATA} customInputValue="" />
+      <PresentationPerPerson />
 		</View>
 	);
 }
