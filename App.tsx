@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { InputData } from "./src/components/BaseComponents";
+import InputData from "./src/components/InputData";
 import PresentationPerPerson from "./src/components/PresentationPerPerson";
 import PriceButtons from "./src/components/SelectTip/PriceButtons";
+import { maskCurrency, maskSpecial } from "./src/utils/utils";
 
 export default function App() {
 	const DATA = [
@@ -42,7 +43,7 @@ export default function App() {
 
 	const handleSplitterTipAmount = useCallback(() => {
 		if (tipValue === 0 || peopleValue === "") return "0.00";
-		const tipAmountTotal = tipValue / Number(peopleValue);
+		const tipAmountTotal = (Number(billValue) * 10 * tipValue) / Number(peopleValue);
 
 		setTipAmountPerPerson(tipAmountTotal.toFixed(2).toString());
 	}, [tipValue, peopleValue, setTipAmountPerPerson]);
@@ -50,7 +51,9 @@ export default function App() {
 	const handleTotalSplitterAmount = useCallback(() => {
 		if (tipValue === 0 || peopleValue === "" || billValue === "") return "0.00";
 
-		const total = (Number(billValue) * tipValue) + Number(billValue)/Number(peopleValue);
+		const total =
+			(Number(billValue) * 10 * tipValue + Number(billValue) * 10) /
+			Number(peopleValue);
 
 		setTotalAmountPerPerson(total.toFixed(2).toString());
 	}, [billValue, tipValue, peopleValue, setTipAmountPerPerson]);
@@ -86,7 +89,7 @@ export default function App() {
 			<View style={styles.content}>
 				<InputData
 					title="Bill"
-					dataValue={billValue}
+					dataValue={maskCurrency(billValue)}
 					onHandleDataValue={handleBillValue}
 				/>
 				<PriceButtons
@@ -97,7 +100,7 @@ export default function App() {
 				/>
 				<InputData
 					title="Number of People"
-					dataValue={peopleValue}
+					dataValue={maskSpecial(peopleValue)}
 					onHandleDataValue={handlePeopleValue}
 				/>
 				<PresentationPerPerson

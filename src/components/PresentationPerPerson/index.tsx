@@ -3,7 +3,6 @@ import {
 	Text,
 	View,
 	StyleSheet,
-	Pressable,
 	TouchableOpacity,
 } from "react-native";
 
