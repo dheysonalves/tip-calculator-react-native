@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import InputData from "./src/components/InputData";
 import PresentationPerPerson from "./src/components/PresentationPerPerson";
 import PriceButtons from "./src/components/SelectTip/PriceButtons";
-import { maskCurrency, maskSpecial } from "./src/utils/utils";
+import { maskCurrency } from "./src/utils/utils";
 
 export default function App() {
 	const DATA = [
@@ -28,6 +28,7 @@ export default function App() {
 	const [tipValue, setTipValue] = useState(0);
 	const [tipAmountPerPerson, setTipAmountPerPerson] = useState("0.00");
 	const [totalAmountPerPerson, setTotalAmountPerPerson] = useState("0.00");
+	const [selectedOption, setSelectedOption] = useState("");
 
 	const handleBillValue = useCallback((value: string) => {
 		setBillValue(value);
@@ -41,28 +42,35 @@ export default function App() {
 		setCustomValue(value);
 	}, []);
 
+	const handleSelectedOption = useCallback((value: string) => {
+		setSelectedOption(value);
+	}, []);
+
 	const handleSplitterTipAmount = useCallback(() => {
 		if (tipValue === 0 || peopleValue === "") return "0.00";
-		const tipAmountTotal = (Number(billValue) * 10 * tipValue) / Number(peopleValue);
+		const billAmount = Number(billValue) * 10;
+		const totalPeopleValue = Number(peopleValue);
 
+		const tipAmountTotal = (billAmount * tipValue) / totalPeopleValue;
 		setTipAmountPerPerson(tipAmountTotal.toFixed(2).toString());
-	}, [tipValue, peopleValue, setTipAmountPerPerson]);
+	}, [tipValue, peopleValue, customValue, setTipAmountPerPerson]);
 
 	const handleTotalSplitterAmount = useCallback(() => {
 		if (tipValue === 0 || peopleValue === "" || billValue === "") return "0.00";
 
-		const total =
-			(Number(billValue) * 10 * tipValue + Number(billValue) * 10) /
-			Number(peopleValue);
+		const billAmount = Number(billValue) * 10;
+		const totalPeopleValue = Number(peopleValue);
 
+		const total = (billAmount * tipValue + billAmount) / totalPeopleValue;
 		setTotalAmountPerPerson(total.toFixed(2).toString());
-	}, [billValue, tipValue, peopleValue, setTipAmountPerPerson]);
+	}, [billValue, tipValue, peopleValue, customValue, setTipAmountPerPerson]);
 
 	const handleResetAllValues = useCallback(() => {
 		setBillValue("");
 		setPeopleValue("");
 		setCustomValue("");
 		setTipValue(0.0);
+		setSelectedOption("");
 		setTipAmountPerPerson("0.00");
 		setTotalAmountPerPerson("0.00");
 	}, [
@@ -98,16 +106,23 @@ export default function App() {
 					customInputValue={customValue}
 					onHandleCustomInput={handleCustomValue}
 					onPressPercentage={setTipValue}
+					onHandleFocus={() => {
+						setTipValue(0);
+					}}
+					editable={false}
+					selectedOption={selectedOption}
+					onHandleSelectedOption={handleSelectedOption}
 				/>
 				<InputData
 					title="Number of People"
 					dataValue={peopleValue}
 					onHandleDataValue={handlePeopleValue}
 					hasError={Number(peopleValue) <= 0}
+					isEditable={!!tipValue || !!customValue}
 				/>
 				<PresentationPerPerson
-					tipAmount={tipAmountPerPerson}
-					totalValue={totalAmountPerPerson}
+					tipAmount={Number(peopleValue) === 0 ? "0.00" : tipAmountPerPerson}
+					totalValue={Number(peopleValue) === 0 ? "0.00" : totalAmountPerPerson}
 					onPressReset={handleResetAllValues}
 				/>
 			</View>

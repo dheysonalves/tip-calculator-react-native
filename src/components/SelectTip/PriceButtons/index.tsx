@@ -7,19 +7,32 @@ interface PriceButtonsInterface {
 	}[];
 	customInputValue: string;
 	onHandleCustomInput: (value: string) => void;
+	selectedOption: string;
+	onHandleSelectedOption: (value: string) => void;
+	onHandleFocus: () => void;
 	onPressPercentage: (value: number) => void;
+	isDisabled?: boolean;
+	editable?: boolean;
 }
 
 const PriceButtons = ({
 	pricesData,
 	customInputValue,
 	onHandleCustomInput,
+	onHandleFocus,
 	onPressPercentage,
+	editable,
+	isDisabled,
+	selectedOption,
+	onHandleSelectedOption,
 }: PriceButtonsInterface) => {
-	const [selectedOption, setSelectedOption] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
 	const handleDataValue = (value: string) => {
 		onHandleCustomInput(value);
+	};
+
+	const handleSelectedOption = (value: string) => {
+		onHandleSelectedOption(value);
 	};
 
 	return (
@@ -31,14 +44,16 @@ const PriceButtons = ({
 						<Pressable
 							key={String(index)}
 							onPress={() => {
-								setSelectedOption(item.value);
+								handleSelectedOption(item.value);
 								onPressPercentage(Number(item.value) / 100);
 							}}
+							disabled={isDisabled}
 							style={[
 								styles.baseButton,
 								item.value === selectedOption
 									? styles.selected
 									: styles.unselected,
+								isDisabled ? styles.disabled : null,
 							]}>
 							<Text
 								style={[
@@ -63,11 +78,14 @@ const PriceButtons = ({
 					onChangeText={handleDataValue}
 					onFocus={() => {
 						setIsFocused(true);
-						setSelectedOption("");
+						handleSelectedOption("");
+						onHandleFocus();
 					}}
 					onBlur={() => {
 						setIsFocused(false);
 					}}
+					editable={editable}
+
 				/>
 			</View>
 		</View>
@@ -130,6 +148,9 @@ const styles = StyleSheet.create({
 	},
 	selectedButtonText: {
 		color: "hsl(183, 100%, 15%)",
+	},
+	disabled: {
+		opacity: 0.8,
 	},
 });
 
